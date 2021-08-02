@@ -40,6 +40,10 @@ class SearchScreen: XCTest {
         return app.buttons.matching(identifier: "View Saved Recipes").firstMatch
     }
     
+    var swiftInfoText: XCUIElement {
+        return app.staticTexts["Swipe Left to Remove Ingredient"].firstMatch
+    }
+    
     func checkIngredientInListView(ing: String) -> Bool {
         return app.staticTexts[ing].firstMatch.exists
     }

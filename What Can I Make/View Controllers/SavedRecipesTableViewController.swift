@@ -27,7 +27,6 @@ func printRecipes(){
 class SavedRecipeCell: UITableViewCell {
     
     
-//    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var missingIngredients: UILabel!
     @IBOutlet weak var metricBackground: UIView!
     @IBOutlet weak var recipeImage: UIImageView!
@@ -36,7 +35,7 @@ class SavedRecipeCell: UITableViewCell {
     @IBOutlet weak var calories: UILabel!
     @IBOutlet weak var servingSize: UILabel!
     @IBOutlet weak var healthLabels: UILabel!
-    
+    @IBOutlet weak var imageOverlay: UIView!
     
     // Takes user to original recipe page
     @IBAction func goToRecipe(_ sender: Any) {
@@ -106,11 +105,19 @@ class SavedRecipesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeInfoTableViewCell", for: indexPath) as! SavedRecipeCell
         cell.nameOfRecipe?.text = savedRecipeListBookmark[indexPath.row].label
         
+        tableView.separatorColor = .clear
+        
         let urlImage = URL(string: savedRecipeListBookmark[indexPath.row].image)!
         let data = try? Data(contentsOf: urlImage)
 
         if let imageData = data {
             cell.recipeImage?.image = UIImage(data: imageData)
+            cell.recipeImage?.layer.cornerRadius = (cell.recipeImage?.frame.width)!/2.0
+            cell.recipeImage?.clipsToBounds = true
+            cell.recipeImage?.layer.masksToBounds = true
+            cell.imageOverlay.layer.cornerRadius = (cell.imageOverlay.frame.width)/2.0
+            cell.imageOverlay.clipsToBounds = true
+            cell.imageOverlay.layer.masksToBounds = true
         }
         
         

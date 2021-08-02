@@ -11,16 +11,13 @@ class AddIngredientsScreen: XCTest {
 
     let app = XCUIApplication()
     
-    var navBarCancelButton: XCUIElement {
-        return app.navigationBars.buttons["Cancel"].firstMatch
-    }
     
     var navBarTitle: XCUIElement {
         return app.navigationBars.staticTexts["Add Ingredient"].firstMatch
     }
     
     var navBarDoneButton: XCUIElement {
-        return app.navigationBars.buttons["Done"].firstMatch
+        return app.buttons["Done"].firstMatch
     }
     
     var inputField: XCUIElement {
@@ -37,7 +34,7 @@ class AddIngredientsScreen: XCTest {
     
     // Types ingredient in virtual keyboard
     func typeIngredient(ing: String){
-        
+        inputField.tap()
         let ingredientToCharArray = ing.map( { String($0) } )
         
         for char in ingredientToCharArray {
@@ -56,3 +53,5 @@ class AddIngredientsScreen: XCTest {
     }
 
 }
+
+

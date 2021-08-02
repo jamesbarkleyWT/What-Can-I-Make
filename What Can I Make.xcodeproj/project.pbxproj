@@ -22,6 +22,9 @@
 		E71A622126A8A9890084CCA6 /* AddIngredientsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A622026A8A9890084CCA6 /* AddIngredientsScreen.swift */; };
 		E71A622526A8B35E0084CCA6 /* AddIngredientScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A622426A8B35E0084CCA6 /* AddIngredientScreenTest.swift */; };
 		E71A624026A8BCEC0084CCA6 /* ResultsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A623F26A8BCEC0084CCA6 /* ResultsScreen.swift */; };
+		E71A627426AF12A40084CCA6 /* ResultsScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A627326AF12A40084CCA6 /* ResultsScreenTest.swift */; };
+		E71A627826AF3D220084CCA6 /* SavedRecipesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A627726AF3D220084CCA6 /* SavedRecipesScreen.swift */; };
+		E71A627C26AF45EF0084CCA6 /* SavedRecipeScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71A627B26AF45EF0084CCA6 /* SavedRecipeScreenTest.swift */; };
 		E7BF966A2683EBA800FFC9D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF96692683EBA800FFC9D5 /* AppDelegate.swift */; };
 		E7BF966C2683EBA800FFC9D5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF966B2683EBA800FFC9D5 /* SceneDelegate.swift */; };
 		E7BF966E2683EBA800FFC9D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF966D2683EBA800FFC9D5 /* ViewController.swift */; };
@@ -64,6 +67,9 @@
 		E71A622026A8A9890084CCA6 /* AddIngredientsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientsScreen.swift; sourceTree = "<group>"; };
 		E71A622426A8B35E0084CCA6 /* AddIngredientScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientScreenTest.swift; sourceTree = "<group>"; };
 		E71A623F26A8BCEC0084CCA6 /* ResultsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsScreen.swift; sourceTree = "<group>"; };
+		E71A627326AF12A40084CCA6 /* ResultsScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsScreenTest.swift; sourceTree = "<group>"; };
+		E71A627726AF3D220084CCA6 /* SavedRecipesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesScreen.swift; sourceTree = "<group>"; };
+		E71A627B26AF45EF0084CCA6 /* SavedRecipeScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipeScreenTest.swift; sourceTree = "<group>"; };
 		E7BF96662683EBA800FFC9D5 /* What Can I Make.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "What Can I Make.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7BF96692683EBA800FFC9D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7BF966B2683EBA800FFC9D5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +168,8 @@
 				E71A61A226A71B3C0084CCA6 /* HomeScreenTest.swift */,
 				E71A61FF26A86CD80084CCA6 /* SearchScreenTest.swift */,
 				E71A622426A8B35E0084CCA6 /* AddIngredientScreenTest.swift */,
+				E71A627326AF12A40084CCA6 /* ResultsScreenTest.swift */,
+				E71A627B26AF45EF0084CCA6 /* SavedRecipeScreenTest.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -173,6 +181,7 @@
 				E71A620526A86F5A0084CCA6 /* SearchScreen.swift */,
 				E71A622026A8A9890084CCA6 /* AddIngredientsScreen.swift */,
 				E71A623F26A8BCEC0084CCA6 /* ResultsScreen.swift */,
+				E71A627726AF3D220084CCA6 /* SavedRecipesScreen.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -360,11 +369,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E71A627426AF12A40084CCA6 /* ResultsScreenTest.swift in Sources */,
+				E71A627826AF3D220084CCA6 /* SavedRecipesScreen.swift in Sources */,
 				E71A624026A8BCEC0084CCA6 /* ResultsScreen.swift in Sources */,
 				E71A622126A8A9890084CCA6 /* AddIngredientsScreen.swift in Sources */,
 				E71A622526A8B35E0084CCA6 /* AddIngredientScreenTest.swift in Sources */,
 				E71A61A326A71B3C0084CCA6 /* HomeScreenTest.swift in Sources */,
 				E71A620626A86F5A0084CCA6 /* SearchScreen.swift in Sources */,
+				E71A627C26AF45EF0084CCA6 /* SavedRecipeScreenTest.swift in Sources */,
 				E71A61E526A76E7C0084CCA6 /* BaseTest.swift in Sources */,
 				E71A61D226A76D890084CCA6 /* HomeScreen.swift in Sources */,
 				E71A620026A86CD80084CCA6 /* SearchScreenTest.swift in Sources */,

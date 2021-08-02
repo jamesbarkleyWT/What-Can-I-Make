@@ -24,6 +24,7 @@ class HomeScreenTest: BaseTest {
     }
     
     func testGetStartedButton(){
+        
         let searchScreen = SearchScreen()
         
         XCTAssertTrue(homeScreen.getStartedButton.exists)

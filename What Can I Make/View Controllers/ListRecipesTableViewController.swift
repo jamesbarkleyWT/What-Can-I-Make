@@ -91,6 +91,7 @@ class RecipeCell: UITableViewCell {
     @IBOutlet weak var healthLabels: UILabel!
     @IBOutlet weak var viewRecipeButton: UIButton!
     
+    @IBOutlet weak var imageOverlay: UIView!
     // Button to go to original recipe page
     @IBAction func viewRecipeButton(_ sender: Any) {
         if let url = URL(string: listOfRecipes[viewRecipeButton.tag].recipe.url) {
@@ -151,11 +152,15 @@ class ListRecipesTableViewController: UITableViewController {
     var apiURL = [String]()
     var responseRecipesCount = 0
     
-
+    @IBOutlet weak var noResultsIcon: UIImageView!
+    @IBOutlet weak var noResultsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getSavedList()
+        noResultsIcon.alpha = 0
+        noResultsLabel.alpha = 0
+
     }
     
 
@@ -184,7 +189,6 @@ class ListRecipesTableViewController: UITableViewController {
         UserDefaults.standard.removeObject(forKey: "keyURL")
         getSavedList()
         fetchPostData()
-        
     }
     
     // MARK: - Table view data source
@@ -197,18 +201,22 @@ class ListRecipesTableViewController: UITableViewController {
         return listOfRecipes.count
     }
     
+    func displayNoResults(){
+        noResultsIcon.alpha = 1
+        noResultsLabel.alpha = 1
+    }
+    
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeInfoTableViewCell", for: indexPath) as! RecipeCell
         
-        if (responseRecipesCount > 0){
-            
+        
+        do {
             // Assign Name of Recipe
             cell.nameOfRecipe?.text = listOfRecipes[indexPath.row].recipe.label
             
             
-            
+            tableView.separatorColor = .clear
             
             // Create and Assign Recipe Image
             let urlImage = URL(string: listOfRecipes[indexPath.row].recipe.image)!
@@ -216,6 +224,12 @@ class ListRecipesTableViewController: UITableViewController {
 
             if let imageData = data {
                 cell.recipeImage?.image = UIImage(data: imageData)
+                cell.recipeImage?.layer.cornerRadius = (cell.recipeImage?.frame.width)!/2.0
+                cell.recipeImage?.clipsToBounds = true
+                cell.recipeImage?.layer.masksToBounds = true
+                cell.imageOverlay.layer.cornerRadius = (cell.imageOverlay.frame.width)/2.0
+                cell.imageOverlay.clipsToBounds = true
+                cell.imageOverlay.layer.masksToBounds = true
             }
             
             
@@ -269,10 +283,8 @@ class ListRecipesTableViewController: UITableViewController {
             cell.viewRecipeButton.tag = indexPath.row
             cell.viewRecipeButton.layer.cornerRadius = 3.0
             cell.metricBackground.layer.cornerRadius = 3.0
-            
-        } else {
-            resultsLable.text = "Sorry no results."
-        }
+        
+        } 
         
         return cell
     }
@@ -308,11 +320,19 @@ class ListRecipesTableViewController: UITableViewController {
                 guard let json = result else {
                     return
                 }
+                
                 self.responseRecipesCount = json.hits.count
+                
+                
+                
                 listOfRecipes = json.hits
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    
+                    if self.responseRecipesCount == 0 {
+                        self.displayNoResults()
+                    }
                 }
                 
             }).resume()
@@ -320,6 +340,7 @@ class ListRecipesTableViewController: UITableViewController {
     }
 
 }
+
 
 extension Decodable {
   init(from: Any) throws {

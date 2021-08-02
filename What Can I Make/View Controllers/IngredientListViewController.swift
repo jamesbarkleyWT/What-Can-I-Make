@@ -18,6 +18,7 @@ class IngredientListViewController: UITableViewController {
     @IBOutlet weak var errorMessageSideBorder: UIView!
     @IBOutlet weak var duplicateIngredientMessage: UILabel!
     
+    @IBOutlet weak var addMoreButton: UIButton!
     var ingredientList = [String]()
     var newIngredient: String = ""
     var savedRecipeList = [RecipeItem]()
@@ -26,7 +27,21 @@ class IngredientListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         styling()
+        disableSearchButton()
     }
+    
+    func disableSearchButton(){
+        
+        if ingredientList.count > 0 {
+            searchButton.isEnabled = true
+            searchButton.alpha = 1
+        } else {
+            searchButton.isEnabled = false
+            searchButton.alpha = 0.7
+        }
+    }
+    
+    
     
     // Handles Search/View Saved Recipe/Error Message styling
     func styling(){
@@ -42,12 +57,15 @@ class IngredientListViewController: UITableViewController {
         savedRecipesButton.layer.borderColor = UIColor.systemPink.cgColor
         errorMessageBG.alpha = 0
         errorMessageSideBorder.alpha = 0
+        
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         saveRecipes()
+        
     }
     
     func saveRecipes(){
@@ -84,9 +102,10 @@ class IngredientListViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        disableSearchButton()
         let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientCell", for: indexPath)
 
+        tableView.separatorColor = .clear
         cell.textLabel?.text = ingredientList[indexPath.row]
         cell.textLabel?.font = UIFont.systemFont(ofSize: 20)
 
@@ -98,6 +117,7 @@ class IngredientListViewController: UITableViewController {
         if (editingStyle == UITableViewCell.EditingStyle.delete) {
             ingredientList.remove(at: indexPath.row)
             tableView.reloadData()
+            disableSearchButton()
         }
         
     }
@@ -106,12 +126,14 @@ class IngredientListViewController: UITableViewController {
     func createURL(list:[String]) -> String{
         var url = "https://edamam-recipe-search.p.rapidapi.com/search?q="
         for (n, ing) in list.enumerated(){
+            let ingredient = ing.replacingOccurrences(of: " ", with: "%20")
             if n == list.count - 1 {
-                url += "\(ing.lowercased().replacingOccurrences(of: " ", with: ""))"
+                url += "\(ingredient.lowercased())"
             } else {
-                url += "\(ing.lowercased().replacingOccurrences(of: " ", with: ""))%2C"
+                url += "\(ingredient.lowercased())%2C"
             }
         }
+        print("This is the URL++++++++++++++\(url)")
         return url
     }
     
@@ -135,6 +157,16 @@ class IngredientListViewController: UITableViewController {
         errorMessageSideBorder.alpha = 0
     }
     
+    func showErrorMessage(message: String){
+        duplicateIngredientMessage.text = message
+        duplicateIngredientMessage.alpha = 1
+        errorMessageBG.alpha = 0.35
+        errorMessageSideBorder.alpha = 1
+        
+        // Timer for duplicate ingredient error message
+        _ = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(removeDuplicateIngredientMessage), userInfo: nil, repeats: false)
+    }
+    
     
     @IBAction func done(segue:UIStoryboardSegue) {
         
@@ -142,13 +174,9 @@ class IngredientListViewController: UITableViewController {
         newIngredient = ingredientDetailVC.name
         
         if ingredientList.contains(newIngredient){
-            duplicateIngredientMessage.text = "\(newIngredient) already in list."
-            duplicateIngredientMessage.alpha = 1
-            errorMessageBG.alpha = 0.35
-            errorMessageSideBorder.alpha = 1
-            
-            // Timer for duplicate ingredient error message
-            _ = Timer.scheduledTimer(timeInterval: 3.0, target: self, selector: #selector(removeDuplicateIngredientMessage), userInfo: nil, repeats: false)
+            showErrorMessage(message: "\(newIngredient) already in list.")
+        } else if (newIngredient.isEmpty){
+            showErrorMessage(message: "You entered nothing.")
         } else {
             ingredientList.append(newIngredient)
         }
